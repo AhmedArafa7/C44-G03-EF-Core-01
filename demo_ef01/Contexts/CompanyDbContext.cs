@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ConsoleApp1.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace ConsoleApp1.Contexts
+{
+    internal class CompanyDbContext : DbContext
+    {
+        // when you create new class 'DbContext'
+        // you must download this package => Microsoft.EntityFrameworkCore.SqlServer
+        // you can also download this package from 'package manager console'
+        //      => PM> install-package Microsoft.EntityFrameworkCore.SqlServer
+
+        public CompanyDbContext() : base()
+        {
+        
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            // connect between consoleApp => database
+            // connection srting => serverName , database name
+            //optionsBuilder.UseSqlServer("Data source = . ; initial catalog = companyRoute ; integrated Security = true");
+            optionsBuilder.UseSqlServer("Server = . ; database = companyRoute; Trusted_connection = true ; trustServerCertificate = true");
+        }
+
+        // if tou want a model turned into table in database
+        // you must use DbSet<>
+        public DbSet<Employee> Employees { get; set; }
+
+        public DbSet<User> UsersTable { get; set; }
+    }
+
+
+}

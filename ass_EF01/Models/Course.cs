@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ass_EF01.Models
+{
+    internal class Course
+    {
+        public int ID { get; set; }
+        public string Duration { get; set; }
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+        [Required]
+        public int Top_ID { get; set; }
+    } // done
+}
