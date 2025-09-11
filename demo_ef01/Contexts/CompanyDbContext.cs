@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using ConsoleApp1.Models;
@@ -28,11 +29,33 @@ namespace ConsoleApp1.Contexts
             optionsBuilder.UseSqlServer("Server = . ; database = companyRoute; Trusted_connection = true ; trustServerCertificate = true");
         }
 
+
+
+        #region fluentAPIS
+
+        // Applay mapping with fluent APIS you must override 'onModelCreating'
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // here you can configure your models
+            // like set primary key , foreign key , etc ...
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        
+            modelBuilder.Entity<Employee>()
+                .HasOne(e => e.ManagedDept)
+                .WithOne(e => e.ManagerId)
+                .HasForeignKey<Department>(d => d.ManagerId);
+        }
+        #endregion
+
         // if tou want a model turned into table in database
         // you must use DbSet<>
         public DbSet<Employee> Employees { get; set; }
 
         public DbSet<User> UsersTable { get; set; }
+
+        public DbSet<Department> Departments { get; set; }
+
+        public DbSet<Product> Producta { get; set; }
     }
 
 

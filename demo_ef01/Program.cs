@@ -1,4 +1,5 @@
 ﻿using ConsoleApp1.Contexts;
+using ConsoleApp1.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ConsoleApp1
@@ -7,6 +8,8 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
+            
+            #region session 01
 
             #region entity framework core
 
@@ -95,6 +98,132 @@ namespace ConsoleApp1
              */
 
             #endregion
+
+            #endregion
+
+            #region session 02
+
+            #region query object model [CRUD Opeartions]
+
+            using CompanyDbContext dbContext = new CompanyDbContext();
+
+            #region add new records
+
+            #region query object model
+
+            //// to add new data in database
+
+            //// connect with database
+            //// by default EF core contain auto tracker => track all object 
+            //dbContext.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
+            //dbContext.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            //Employee emp01 = new Employee()
+            //{
+            //    //Id = 1,
+            //    Name = "ahmed",
+            //    Salary = 40000,
+            //    Age = 22
+            //};
+
+            //Console.WriteLine(dbContext.Entry<Employee>(emp01).State); // detached
+
+            //// add emp01 to table employees in database
+
+            //// 1)
+            //dbContext.Employees.Add(emp01);
+            //// 2)
+            //dbContext.Set<Employee>().Add(emp01);
+            //// 3)
+            //dbContext.Add(emp01);
+
+            ////dbContext.Entry<Employee>(emp01).State; // auto tracking 
+
+            //Console.WriteLine(dbContext.Entry<Employee>(emp01).State); // added
+
+            //// savingchanges() => applay database
+            //dbContext.SaveChanges();
+
+            #endregion
+
+            #region get data from table - select
+
+            ////var emp01 = dbContext.Employees.Where(e => e.Id == 1).FirstOrDefault();
+            //var emp01 = dbContext.Employees.FirstOrDefault(e => e.Id == 1);
+
+            ///*
+            // * select top(1)
+            // * from employees
+            // * where id = 1
+            // */
+
+            //if (emp01 != null)
+            //{
+            //    Console.WriteLine($"id : {emp01.Id}\nName : {emp01.Name}\nSalary : {emp01.Salary}");
+            //}
+
+            #endregion
+
+
+            #region update data in table - update
+
+            //var emp01 = dbContext.Employees.FirstOrDefault(e => e.Id == 1);
+
+            //if (emp01 != null)
+            //{
+            //    emp01.Name = "ahmed";
+            //    Console.WriteLine(dbContext.Entry<Employee>(emp01).State);
+            //    dbContext.SaveChanges();
+            //}
+
+            #endregion
+
+            #region remove data from table - delete
+
+            //var emp01 = dbContext.Employees.FirstOrDefault(e => e.Id == 1);
+
+            //if (emp01 != null)
+            //{
+            //    //dbContext.Employees.Remove(emp01);
+            //    dbContext.Remove(emp01);
+            //    Console.WriteLine(dbContext.Entry<Employee>(emp01).State);
+            //    dbContext.SaveChanges();
+            //}
+
+            #endregion
+
+
+            #endregion
+
+            #endregion
+
+            #region relationships between classes
+
+            /*
+             * you can make relation between 2 tables by 3 ways :-
+             *      1. navigation property
+             *      2. fluent APIs
+             *      3. by convention
+             * 
+             */
+
+            #endregion
+
+            #region one to one [optional - total]
+
+            #endregion
+
+            #region one to one [total - total]
+
+            #endregion
+
+            #region one to one [optional - optional] self study
+
+            #endregion
+
+            #endregion
+
+
+            Console.WriteLine("Didnot Done");
 
         } // Dispose()
     }

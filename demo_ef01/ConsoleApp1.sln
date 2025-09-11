@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36401.2 d17.14
+VisualStudioVersion = 17.14.36401.2
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1.csproj", "{714AA17B-D630-4EFE-AA63-D3E6B3830E48}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "demos_EF_core", "demos_EF_core.csproj", "{714AA17B-D630-4EFE-AA63-D3E6B3830E48}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ass_EF01", "..\ass_EF01\ass_EF01.csproj", "{F9A49407-146E-4150-84AA-EA34A7605223}"
 EndProject
