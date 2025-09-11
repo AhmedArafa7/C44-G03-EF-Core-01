@@ -10,9 +10,7 @@ namespace ass_EF01.Models
 {
     internal class Stud_Course
     {
-        [ForeignKey(nameof(Student_id))]
         public int Stud_ID { get; set; }
-        [ForeignKey(nameof(Course_id))]
         public int Course_ID { get; set; }
         public int Grade { get; set; }
 

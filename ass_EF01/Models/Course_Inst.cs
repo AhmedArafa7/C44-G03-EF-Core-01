@@ -10,9 +10,7 @@ namespace ass_EF01.Models
 {
     internal class Course_Inst
     {
-        [ForeignKey(nameof(Instructor_id))]
         public int inst_ID { get; set; }
-        [ForeignKey(nameof(Course_id))]
         public int Course_ID { get; set; }
         public string evaluate { get; set; }
 

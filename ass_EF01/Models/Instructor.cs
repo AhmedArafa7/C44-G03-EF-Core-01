@@ -16,9 +16,9 @@ namespace ass_EF01.Models
         public double Salary { get; set; }
         public string Adress { get; set; }
         public int HourRate { get; set; }
-        [ForeignKey(nameof(Department_id))]
         public int Dept_ID { get; set; }
 
         public Department Department_id { get; set; }
+        public Course_Inst Course_Insted_id { get; set; }
     } // done
 }

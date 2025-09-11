@@ -15,10 +15,10 @@ namespace ass_EF01.Models
         public string LName { get; set; }
         public string Address { get; set; }
         public int Age { get; set; }
-        [ForeignKey(nameof(Department_id))]
         public int Dep_Id { get; set; }
 
         public Department Department_id { get; set; }
+        public Stud_Course Stud_Courseed_id { get; set; }
 
     }
 }

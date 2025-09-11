@@ -15,10 +15,11 @@ namespace ass_EF01.Models
         public string Name { get; set; }
 
         public string Description { get; set; }
-        [ForeignKey(nameof(Topic_id))]
         public int Top_ID { get; set; }
 
         public Topic Topic_id { get; set; }
 
+        public Course_Inst Course_Insted_id { get; set; }
+        public Stud_Course Stud_Courseed_id { get; set;  }
     } // done
 }

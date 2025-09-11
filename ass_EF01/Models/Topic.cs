@@ -10,5 +10,7 @@ namespace ass_EF01.Models
     {
         public int ID { get; set; }
         public string Name { get; set; }
+
+        public Course Topiced_id { get; set; }
     } // done
 }

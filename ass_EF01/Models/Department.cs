@@ -13,5 +13,8 @@ namespace ass_EF01.Models
         public string Name { get; set; }
         public required int ins_ID { get; set; }
         public DateTime HiringDate { get; set; }
+
+        public Instructor Instructored_id { get; set; }
+        public Student Studented_id { get; set; }
     } // done
 }
