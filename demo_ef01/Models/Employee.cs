@@ -28,11 +28,21 @@ namespace ConsoleApp1.Models
 
 
         // FK
-     //   [ForeignKey(nameof(ManagedDept))]
-     //   public int ManageDeptId { get; set; }
+        //   [ForeignKey(nameof(ManagedDept))]
+        //   public int ManageDeptId { get; set; }
 
+        [InverseProperty(nameof(Department.ManagerId))]
         public Department ManagedDept { get; set; } = null!; // nav property | total
 
         public Address empaddress { get; set; } = null!;
+
+        // one to many [work] employee_department
+
+        // fk
+        public int DeptId { get; set; }
+
+        //[InverseProperty("Employees")]
+        [InverseProperty(nameof(Department.Employees))]
+        public Department EmpDeptId { get; set; } = null!;
     }
 }

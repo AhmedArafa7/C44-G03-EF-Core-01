@@ -20,7 +20,14 @@ namespace ConsoleApp1.Models
         // nav property
 
         [ForeignKey(nameof(ManagerId))]
-        public int DepartmentId { get; set; }
+        public int DepartmtId { get; set; }
+
+        [InverseProperty(nameof(Employee.ManagedDept))]
         public Employee ManagerId { get; set; } = null!; // nav property | partial
+
+        // one to many
+        //[InverseProperty("EmployeeDepartment")]
+        [InverseProperty(nameof(Employee.EmpDeptId))]
+        public ICollection<Employee> Employees { get; set; } = new HashSet<Employee>();
     }
 }

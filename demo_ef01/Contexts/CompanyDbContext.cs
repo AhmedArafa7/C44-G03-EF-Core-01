@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using ConsoleApp1.Models;
+using demos_EF_core.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ConsoleApp1.Contexts
@@ -39,11 +40,46 @@ namespace ConsoleApp1.Contexts
             // here you can configure your models
             // like set primary key , foreign key , etc ...
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-        
+
+            #region one to one RS
+
             modelBuilder.Entity<Employee>()
                 .HasOne(e => e.ManagedDept)
                 .WithOne(e => e.ManagerId)
                 .HasForeignKey<Department>(d => d.ManagerId);
+
+            #endregion
+
+            #region one to many RS
+
+            modelBuilder.Entity<Employee>()
+                .HasOne(e => e.EmpDeptId) // each employee must belong to departmant
+                .WithMany(d => d.Employees)
+                .HasForeignKey(e => e.EmpDeptId);
+            #endregion
+
+            #region many to many RS
+
+            modelBuilder.Entity<Student>()
+                .HasMany(c => c.Courses)
+                .WithMany(s => s.Students)
+                .UsingEntity<StdCrs>()
+                .HasKey(sc => new { sc.StudentId, sc.CourseId }); // composit primary key
+
+            #endregion
+
+            #region seed data through migration
+
+            //modelBuilder.Entity<Department>()
+            //    .HasData
+            //    (
+            //        new Department() { DeptId = 8 , DeptName = "Software"},
+            //        new Department() { DeptId = 9 , DeptName = "Marketing" }
+            //    );
+
+            #endregion
+
+
         }
         #endregion
 
@@ -56,6 +92,10 @@ namespace ConsoleApp1.Contexts
         public DbSet<Department> Departments { get; set; }
 
         public DbSet<Product> Producta { get; set; }
+
+        public DbSet<Student> students { get; set; }
+
+        public DbSet<Course> Courses { get; set; }
     }
 
 

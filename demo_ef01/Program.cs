@@ -1,5 +1,6 @@
 ﻿using ConsoleApp1.Contexts;
 using ConsoleApp1.Models;
+using demos_EF_core.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace ConsoleApp1
@@ -8,7 +9,8 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            
+            using CompanyDbContext dbContext = new CompanyDbContext(); // open connection
+
             #region session 01
 
             #region entity framework core
@@ -105,7 +107,7 @@ namespace ConsoleApp1
 
             #region query object model [CRUD Opeartions]
 
-            using CompanyDbContext dbContext = new CompanyDbContext();
+            //using CompanyDbContext dbContext = new CompanyDbContext();
 
             #region add new records
 
@@ -217,6 +219,80 @@ namespace ConsoleApp1
             #endregion
 
             #region one to one [optional - optional] self study
+
+            #endregion
+
+            #endregion
+
+            #region session 03
+
+            #region data seed
+
+            /*
+             * 3 ways
+             *      1- manual data seeding
+             *      2- migration data seeding
+             *      3- dynamic data seeding
+             */
+
+            #region manual data seeding
+
+            //Department Dept01 = new Department()
+            //{
+            //    DeptName = "HR"
+            //};
+
+            //dbContext.Add(Dept01);
+            //dbContext.SaveChanges();
+
+            //List<Department> departments = new List<Department>()
+            //{
+            //    new Department() {DeptName = "IT"},
+            //    new Department() {DeptName = "Dev"},
+            //    new Department() {DeptName = "Sales"},
+            //    new Department() {DeptName = "Testing"}
+            //};
+
+            //dbContext.AddRange(departments);
+            //dbContext.SaveChanges();
+
+
+
+            #endregion
+
+            #region migration data seeding
+
+            #endregion
+
+            #region dynamic data seeding
+
+            bool Flag = CompanyDbContextSeed.Seed(dbContext);
+
+            if (Flag)
+                Console.WriteLine("Data seed done :D ");
+            else
+                Console.WriteLine("Faild :( ");
+            #endregion
+
+            #endregion
+
+            #region MyRegion
+
+            #endregion
+
+            #region MyRegion
+
+            #endregion
+
+            #region MyRegion
+
+            #endregion
+
+            #region MyRegion
+
+            #endregion
+
+            #region MyRegion
 
             #endregion
 
