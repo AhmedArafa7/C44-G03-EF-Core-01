@@ -43,6 +43,6 @@ namespace ConsoleApp1.Models
 
         //[InverseProperty("Employees")]
         [InverseProperty(nameof(Department.Employees))]
-        public Department EmpDeptId { get; set; } = null!;
+        public int? EmpDeptId { get; set; }
     }
 }

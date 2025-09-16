@@ -2,6 +2,7 @@
 using ConsoleApp1.Models;
 using demos_EF_core.Data;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace ConsoleApp1
 {
@@ -266,40 +267,126 @@ namespace ConsoleApp1
 
             #region dynamic data seeding
 
-            bool Flag = CompanyDbContextSeed.Seed(dbContext);
+            //bool Flag = CompanyDbContextSeed.Seed(dbContext);
 
-            if (Flag)
-                Console.WriteLine("Data seed done :D ");
-            else
-                Console.WriteLine("Faild :( ");
+            //if (Flag)
+            //    Console.WriteLine("Data seed done :D ");
+            //else
+            //    Console.WriteLine("Faild :( ");
             #endregion
 
             #endregion
 
-            #region MyRegion
+            #region loading related data
+
+            #region default related data
+
+            //var Emp01 = dbContext.Employees.FirstOrDefault(e => e.Id == 5);
+
+            //if (Emp01 != null)
+            //{
+            //    Console.WriteLine($"Employee name : {Emp01.Name}");
+            //    Console.WriteLine($"Department number : {Emp01.EmpDeptId}");
+            //    Console.WriteLine($"Department name : {Emp01.ManagedDept.DeptName}"); // related data
+            //}
+
+            ///*
+            // * 
+            // * select
+            // * from employees E , Departments D
+            // * where D.Id = E.DepatId
+            // */
+
+            //var EmpDept = (from D in dbContext.Departments
+            //               where D.DeptId == Emp01.EmpDeptId
+            //               select D).FirstOrDefault();
+
+            //Console.WriteLine($"Department : {EmpDept?.DeptName}");
 
             #endregion
 
-            #region MyRegion
+            #region eager loading
+
+            //var Emp01 = dbContext.Employees.Include(e => e.ManagedDept).FirstOrDefault(e => e.Id == 5);
+
+            //if (Emp01 != null)
+            //{
+            //    Console.WriteLine($"Employee name : {Emp01.Name}");
+            //    Console.WriteLine($"Department number : {Emp01.EmpDeptId}");
+            //    Console.WriteLine($"Department name : {Emp01.ManagedDept?.DeptName}");
+            //}
+
+            // Get employee with id = 6 and department which is managed by this employee
+
+
+            var EmpManager = dbContext.Employees.Include(e => e.ManagedDept).FirstOrDefault(e => e.Id == 6);
+
+            if (EmpManager == null)
+            {
+                Console.WriteLine($"Emp name : {EmpManager.Name}");
+                Console.WriteLine($"Dept id : {EmpManager.ManagedDept.DeptId}");
+                Console.WriteLine($"Dept name : {EmpManager.ManagedDept.DeptName}");
+            }
 
             #endregion
 
-            #region MyRegion
 
             #endregion
 
-            #region MyRegion
+            #region explicit loading
+
+            // manual loading
+            // two request
+            // first request => retrive data
+            // second request => retrive related data
+
+            #region example 01
+
+            var Emp01 = dbContext.Employees.FirstOrDefault(e  => e.Id == 5); // data
+
+            if (Emp01 != null)
+            {
+                Console.WriteLine($"emp name : {Emp01.Name}");
+                Console.WriteLine($"dept id : {Emp01.EmpDeptId}");
+                // departmentName
+                // Explicit
+
+                dbContext.Entry(Emp01).Reference(e => e.ManagedDept).Load();
+                // reference() => allowed with one navigational property
+                Console.WriteLine($"dept name : {Emp01.ManagedDept.DeptName}");
+            }
 
             #endregion
 
-            #region MyRegion
+
+            #region example 02
+
+            // get dept and employee works on it
+
+            var Dept01 = dbContext.Departments.FirstOrDefault(d => d.DeptId == 3);
+
+            if (Dept01 != null)
+                Console.WriteLine(Dept01.DeptName);
+
+            // explicit loading => another request
+            // collection() => work with many nav property
+            //dbContext.Entry(Dept01).Collection(d => d.Employees).Load();
+            dbContext.Entry(Dept01).Collection(d => d.Employees).Query().Where(e => e.Age <30).Load();
+
+            foreach (var item in Dept01.Employees)
+                Console.WriteLine($"    {item.Name}");
+
+            #endregion
+
 
             #endregion
 
             #endregion
 
 
-            Console.WriteLine("Didnot Done");
+
+
+            Console.WriteLine("Done");
 
         } // Dispose()
     }
