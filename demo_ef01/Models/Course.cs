@@ -12,6 +12,6 @@ namespace demos_EF_core.Models
         public string Name { get; set; }
 
         // nav property m to m with student
-        public ICollection<Student> Students { get; set; }
+        public virtual ICollection<Student> Students { get; set; }
     }
 }

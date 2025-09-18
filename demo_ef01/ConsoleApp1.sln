@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "demos_EF_core", "demos_EF_c
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ass_EF01", "..\ass_EF01\ass_EF01.csproj", "{F9A49407-146E-4150-84AA-EA34A7605223}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InheritanceMapping", "..\InheritanceMapping\InheritanceMapping.csproj", "{2BC89600-0D0D-44DA-9892-576D0E4059BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F9A49407-146E-4150-84AA-EA34A7605223}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9A49407-146E-4150-84AA-EA34A7605223}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9A49407-146E-4150-84AA-EA34A7605223}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BC89600-0D0D-44DA-9892-576D0E4059BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BC89600-0D0D-44DA-9892-576D0E4059BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BC89600-0D0D-44DA-9892-576D0E4059BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BC89600-0D0D-44DA-9892-576D0E4059BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

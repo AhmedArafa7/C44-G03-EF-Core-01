@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace demos_EF_core.Models
+namespace InheritanceMapping
 {
-    internal class Student
+    internal class Employee
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public int? Age { get; set; }
+        public string? Address { get; set; }
 
-        // nav property m to m with Course
-        public virtual ICollection<Course> Courses { get; set; }
     }
 }

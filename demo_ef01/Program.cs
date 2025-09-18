@@ -3,6 +3,8 @@ using ConsoleApp1.Models;
 using demos_EF_core.Data;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
+
 
 namespace ConsoleApp1
 {
@@ -319,14 +321,14 @@ namespace ConsoleApp1
             // Get employee with id = 6 and department which is managed by this employee
 
 
-            var EmpManager = dbContext.Employees.Include(e => e.ManagedDept).FirstOrDefault(e => e.Id == 6);
+            //var EmpManager = dbContext.Employees.Include(e => e.ManagedDept).FirstOrDefault(e => e.Id == 6);
 
-            if (EmpManager == null)
-            {
-                Console.WriteLine($"Emp name : {EmpManager.Name}");
-                Console.WriteLine($"Dept id : {EmpManager.ManagedDept.DeptId}");
-                Console.WriteLine($"Dept name : {EmpManager.ManagedDept.DeptName}");
-            }
+            //if (EmpManager == null)
+            //{
+            //    Console.WriteLine($"Emp name : {EmpManager.Name}");
+            //    Console.WriteLine($"Dept id : {EmpManager.ManagedDept.DeptId}");
+            //    Console.WriteLine($"Dept name : {EmpManager.ManagedDept.DeptName}");
+            //}
 
             #endregion
 
@@ -342,19 +344,19 @@ namespace ConsoleApp1
 
             #region example 01
 
-            var Emp01 = dbContext.Employees.FirstOrDefault(e  => e.Id == 5); // data
+            //var Emp01 = dbContext.Employees.FirstOrDefault(e  => e.Id == 5); // data
 
-            if (Emp01 != null)
-            {
-                Console.WriteLine($"emp name : {Emp01.Name}");
-                Console.WriteLine($"dept id : {Emp01.EmpDeptId}");
-                // departmentName
-                // Explicit
+            //if (Emp01 != null)
+            //{
+            //    Console.WriteLine($"emp name : {Emp01.Name}");
+            //    Console.WriteLine($"dept id : {Emp01.EmpDept}");
+            //    // departmentName
+            //    // Explicit
 
-                dbContext.Entry(Emp01).Reference(e => e.ManagedDept).Load();
-                // reference() => allowed with one navigational property
-                Console.WriteLine($"dept name : {Emp01.ManagedDept.DeptName}");
-            }
+            //    dbContext.Entry(Emp01).Reference(e => e.ManagedDept).Load();
+            //    // reference() => allowed with one navigational property
+            //    Console.WriteLine($"dept name : {Emp01.ManagedDept.DeptName}");
+            //}
 
             #endregion
 
@@ -383,7 +385,141 @@ namespace ConsoleApp1
 
             #endregion
 
+            #region session 04
 
+            #region loading related data
+
+            #region lazy loading
+
+            /*
+             * enable lazy loading :-
+             *      1. install package => Microsoft.EntityFrameworkCore.Proxies
+             *      2. configer this packrage in DbContext class
+             *      3. all nav properties must be 'virtual' and vlasses must be 'public'
+             * 
+             * 
+             */
+
+            //var Emp01 = dbContext.Employees.FirstOrDefault(e => e.Id == 5);
+
+            //if (Emp01 != null)
+            //{
+            //    Console.WriteLine($"Employee name : {Emp01.Name}");
+            //    Console.WriteLine($"Department ID : {Emp01.DeptId}");
+            //    Console.WriteLine($"Department name : {Emp01.ManagedDept.DeptName}");
+            //}
+
+            #endregion
+
+            #endregion
+
+            #region join category [LINQ]
+
+
+            #region inner join
+
+            #region get depertment that has employee
+
+            // inner join
+            /*
+             * select e.id , e.name , d.deptid , d.deptname
+             * from employee e , department d
+             * where d.depId == e.DepartmentId
+             */
+
+            // fluant syntax
+            //var result = dbContext.Departments.Join(dbContext.Employees,
+            //                                        d => d.DeptId,
+            //                                        e => e.DeptId,
+            //                                        (d, e) => new
+            //                                        {
+            //                                            EmpID = e.Id,
+            //                                            EmpName = e.Name,
+            //                                            DeptId = d.DeptId,
+            //                                            DeptName = d.DeptName,
+            //                                        });
+
+            // Query syntax
+            //var Result = from D in dbContext.Departments
+            //             join E in dbContext.Employees
+            //             on D.DeptId equals E.DeptId
+            //             select new
+            //             {
+            //                 EmpID = E.Id,
+            //                 EmpName = E.Name,
+            //                 DeptId = D.DeptId,
+            //                 DeptName = D.DeptName,
+            //             };
+
+            #endregion
+
+            #region get department managers
+
+            //var result = dbContext.Employees.Join(dbContext.Departments,
+            //                            e => e.Id,
+            //                            d => d.ManagerId,
+            //                            (e, d) => new
+            //                            {
+            //                                EmpID = e.Id,
+            //                                EmpName = e.Name,
+            //                                DeptId = d.DeptId,
+            //                                DeptName = d.DeptName,
+            //                            });
+
+            #endregion
+
+            #endregion
+
+            #region Group join- Left outer join
+
+            #region Get all departments that has employees or not
+
+            //var result = dbContext.Departments.GroupJoin(dbContext.Employees,
+            //                                            d => d.DeptId,
+            //                                            e => e.DeptId,
+            //                                            (d, e) => new
+            //                                            {
+            //                                                Depertment = d,
+            //                                                Employee = e
+            //                                            });
+
+            //var result = from d in dbContext.Departments
+            //             join emp in dbContext.Employees
+            //             on d.DeptId equals emp.DeptId into Groups
+            //             select new
+            //             {
+            //                 Department = d,
+            //                 Employee = Groups
+            //             };
+
+            //foreach (var dept in result)
+            //{
+            //    Console.WriteLine($"DeptID : {dept.Department.DeptId} - DeptName : {dept.Depertment.DeptName}");
+            //    foreach (var emp in dept.Employee)
+            //        Console.WriteLine($"      {emp.Name}");
+
+            //}
+
+            #endregion
+
+
+            #endregion
+
+            #region Right outer join - self study
+
+            // مش مدعول لانه نفس الليفت لكن بعكس ترتيب الجداول و لانه اقل استخداما
+
+            #endregion
+
+            #region cross join - self study
+
+            // مدعوم و يستخدم لجمع جدولين مع بعض لكن دون تكرار
+
+            #endregion
+
+            #endregion
+
+            #endregion
 
 
             Console.WriteLine("Done");

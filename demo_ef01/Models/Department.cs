@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 namespace ConsoleApp1.Models
 {
     internal class Department
@@ -19,15 +21,15 @@ namespace ConsoleApp1.Models
 
         // nav property
 
-        [ForeignKey(nameof(ManagerId))]
-        public int DepartmtId { get; set; }
+        [ForeignKey(nameof(Manager))]
+        public int ManagerId { get; set; }
 
         [InverseProperty(nameof(Employee.ManagedDept))]
-        public Employee ManagerId { get; set; } = null!; // nav property | partial
+        public virtual Employee Manager { get; set; } = null!; // nav property | partial
 
         // one to many
         //[InverseProperty("EmployeeDepartment")]
-        [InverseProperty(nameof(Employee.EmpDeptId))]
-        public ICollection<Employee> Employees { get; set; } = new HashSet<Employee>();
+        [InverseProperty(nameof(Employee.EmpDept))]
+        public virtual ICollection<Employee> Employees { get; set; } = new HashSet<Employee>();
     }
 }

@@ -27,7 +27,8 @@ namespace ConsoleApp1.Contexts
             // connect between consoleApp => database
             // connection srting => serverName , database name
             //optionsBuilder.UseSqlServer("Data source = . ; initial catalog = companyRoute ; integrated Security = true");
-            optionsBuilder.UseSqlServer("Server = . ; database = companyRoute; Trusted_connection = true ; trustServerCertificate = true");
+            optionsBuilder.UseSqlServer("Server = . ; database = companyRoute; Trusted_connection = true ; trustServerCertificate = true")
+                          .UseLazyLoadingProxies(); // enable for lazy loading
         }
 
 
@@ -45,17 +46,17 @@ namespace ConsoleApp1.Contexts
 
             modelBuilder.Entity<Employee>()
                 .HasOne(e => e.ManagedDept)
-                .WithOne(e => e.ManagerId)
-                .HasForeignKey<Department>(d => d.ManagerId);
+                .WithOne(e => e.Manager)
+                .HasForeignKey<Department>(d => d.Manager);
 
             #endregion
 
             #region one to many RS
 
             modelBuilder.Entity<Employee>()
-                .HasOne(e => e.EmpDeptId) // each employee must belong to departmant
+                .HasOne(e => e.EmpDept) // each employee must belong to departmant
                 .WithMany(d => d.Employees)
-                .HasForeignKey(e => e.EmpDeptId);
+                .HasForeignKey(e => e.EmpDept);
             #endregion
 
             #region many to many RS

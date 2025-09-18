@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 namespace ConsoleApp1.Models
 {
     // model == entity == dominEntity : POCO class
@@ -31,8 +33,8 @@ namespace ConsoleApp1.Models
         //   [ForeignKey(nameof(ManagedDept))]
         //   public int ManageDeptId { get; set; }
 
-        [InverseProperty(nameof(Department.ManagerId))]
-        public Department ManagedDept { get; set; } = null!; // nav property | total
+        [InverseProperty(nameof(Department.Manager))]
+        public virtual Department ManagedDept { get; set; } = null!; // nav property | total
 
         public Address empaddress { get; set; } = null!;
 
@@ -43,6 +45,6 @@ namespace ConsoleApp1.Models
 
         //[InverseProperty("Employees")]
         [InverseProperty(nameof(Department.Employees))]
-        public int? EmpDeptId { get; set; }
+        public virtual Department EmpDept { get; set; }
     }
 }
